@@ -1,0 +1,11 @@
+{
+	"version":"1.0.0",
+	"name":"Nepali Calendar Helper",
+	"appType":"APP",
+	"icons":{"48":"dhis2-app-icon.png"},
+	"activities":{
+		"dhis":{"href":"*"}
+	},
+	"plugin_launch_path":"plugin.html",
+	"short_name":"Nepali Calendar Helper"
+}
