@@ -2,7 +2,7 @@
 	"version":"1.0.0",
 	"name":"Nepali Calendar Helper",
 	"appType":"APP",
-	"icons":{"48":"dhis2-app-icon.png"},
+	"icons":{"48":"img/icon.png"},
 	"activities":{
 		"dhis":{"href":"*"}
 	},
