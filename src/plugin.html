@@ -3,72 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Nepali Date Helper</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href="nepali.datepicker.v5.0.6.min.css" />
-    <script src="nepali.datepicker.v5.0.6.min.js"></script>
-	<style>
-		body{font-family:Arial, sans-serif;text-align:center}
-		.np-calendar-helper-heading{font-weight:bold;margin:0 0 5px 0}
-		.np-calendar-helper-isoDate{display:inline}
-		.ndp-container{width:95%;max-width:96%;box-shadow:none;}
-		.ndp-table{width:100%}
-		.ndp-table td{border:1px solid #efefef}
-	</style>
 </head>
 <body>
 	<div class="container">
-		<div class="np-calendar-helper-heading">Nepali Date Helper</div>
-		<div id="nepaliDate"></div>
-		<span id="np-calendar-helper-isoDate"></span>
+		<div class="meromiti-widget" 
+			data-type="month" 
+			data-bg="glass" 
+			data-border="0" 
+			data-branding="0"></div>
+		<script src="https://meromiti.com/widget.js" async></script>
 	</div>
 
-<script>
-	const iframe = window.frameElement;
-	
+<script>	
 	window.addEventListener('load', function() {
-		// Based on calender container
-		iframe.style.height = "330px";
-		iframe.parentElement.style.height = "330px";
+		iframe.style.height = "350px";
+		iframe.parentElement.style.height = "350px";
 		iframe.style.border = "1px solid #d4d4d4";
 		iframe.style.borderRadius = "5px";
 		iframe.style.background = "#fff";
 	});
-	
-	$(document).ready(function () {
-		$('#nepaliDate').NepaliDatePicker({
-			inline: true,
-			miniEnglishDates: true,
-			onSelect:function(date){
-				var adDate = NepaliFunctions.BS2AD(date.value);
-				copyToClipboard(adDate);
-			}
-		});
-		
-		function copyToClipboard(text) {
-			navigator.clipboard.writeText(text).then(function () {
-				console.log(text + " copied");
-			});
-		}
-	});
-	
-	function resizeIframe() {
-			const body = document.body;
-			const html = document.documentElement;
-			const height = Math.max(
-				body.scrollHeight,
-				body.offsetHeight,
-				html.clientHeight,
-				html.scrollHeight,
-				html.offsetHeight
-			);
-			console.log(height);
-			iframe.style.height = (height)+"px";
-			iframe.parentElement.style.height = (height)+"px";
-			iframe.style.border = "1px solid #d4d4d4";
-			iframe.style.borderRadius = "5px";
-			iframe.style.background = "#fff";
-		}
 </script>
-
 </body>
 </html>
