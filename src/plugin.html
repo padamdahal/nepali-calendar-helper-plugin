@@ -16,50 +16,99 @@
 	</div>
 
 <script>
-	const iframe = window.frameElement;
-	window.addEventListener('load', function() {
-		iframe.style.height = "350px";
-		iframe.parentElement.style.height = "350px";
-		iframe.style.border = "1px solid #d4d4d4";
-		iframe.style.borderRadius = "5px";
-		iframe.style.background = "#fff";
-
-		// Style inside the widget iframe
-		const meroMitiIframe = document.querySelector('iframe');
-		meroMitiIframe.onload = function () {
-					var doc = iframe.contentDocument || iframe.contentWindow.document;
-					var style = doc.createElement('style');
-					style.textContent = `
-							.meromiti-month-widget {
-									padding:0 !important;
-							}
-					`;
-					doc.head.appendChild(style);
-			};		
-	});
-
+	/* Control the display and allow minimize/maximize of the plugin container*/
 	window.addEventListener('DOMContentLoaded', () => {
-			// 1. Locate the iframe element inside the parent window
+			// Locate the iframe element inside the parent window
 			const iframe = window.parent.document.querySelector('iframe[src*="Nepali-Calendar-Helper"]');
-
 			if (iframe) {
-					// 2. Access its parent element (the <div>)
+					iframe.style.border = "1px solid #d4d4d4";
+					iframe.style.borderRadius = "5px";
+					iframe.style.background = "#fff";
+					iframe.style.height = "350px";
+				
+					/* START positioning the parent div element */
 					const parentDiv = iframe.parentElement;
-
-					// 3. Apply your styles
-					/*parentDiv.style.height = "500px";
-					parentDiv.style.border = "2px solid red";
-					parentDiv.style.display = "flex";*/
-
 					parentDiv.style.position = "fixed";
-					parentDiv.style.bottom = "20px";
-					parentDiv.style.right = "20px";
+					parentDiv.style.bottom = "10px";
+					parentDiv.style.right = "10px";
 					parentDiv.style.zIndex = "9999";
-	
-					parentDiv.style.height = "350px"; 
-					iframe.style.height = "100%";
-					iframe.style.width = "100%";
+					parentDiv.style.height = "max-content";
+					parentDiv.style.width = "max-content";
+					/* END positioning */
+
+				/* START minimize/maximize */
+				const toggleBtn = window.parent.document.createElement('button');
+				toggleBtn.innerHTML = 'x';
+
+				// Style the toggle button to sit neatly over the container corner
+				Object.assign(toggleBtn.style, {
+						position: 'absolute',
+						top: '-10px',
+						right: '-10px',
+						width: '32px',
+						height: '32px',
+						borderRadius: '50%',
+						backgroundColor: '#ffffff',
+						border: '1px solid #d4d4d4',
+						boxShadow: '0 2px 5px rgba(0,0,0,0.15)',
+						cursor: 'pointer',
+						fontSize: '18px',
+						fontWeight: 'bold',
+						display: 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						zIndex: '10000',
+						fontFamily: 'sans-serif',
+						transition: 'all 0.3s ease'
+				});
+
+				// Ensure the iframe transitions smoothly too
+				iframe.style.transition = "transform 0.3s ease, opacity 0.3s ease";
+				iframe.style.transformOrigin = "bottom right";
+
+				parentDiv.appendChild(toggleBtn);
+				let isMinimized = false;
+
+				toggleBtn.addEventListener('click', (e) => {
+						e.stopPropagation();
+						if (!isMinimized) {
+								iframe.style.transform = 'scale(0)';
+								iframe.style.opacity = '0';
+								iframe.style.pointerEvents = 'none';
+								toggleBtn.innerHTML = '📅'; 
+								toggleBtn.style.top = '-10px';
+								toggleBtn.style.right = '-10px';
+								isMinimized = true;
+						} else {
+								iframe.style.transform = 'scale(1)';
+								iframe.style.opacity = '1';
+								iframe.style.pointerEvents = 'auto';
+								toggleBtn.innerHTML = '−';
+								toggleBtn.style.top = '-10px';
+								toggleBtn.style.right = '-10px';
+								isMinimized = false;
+						}
+				});
+				/* END minimize/maximize */
+
+				
+			} // End if(iframe)
+
+			// Control the style of meromiti widget
+			const meroMitiIframe = document.querySelector('iframe');
+			if (meroMitiIframe) {
+				meroMitiIframe.onload = function () {
+							var doc = iframe.contentDocument || iframe.contentWindow.document;
+							var style = doc.createElement('style');
+							style.textContent = `
+									.meromiti-month-widget {
+											padding:0 !important;
+									}`;
+							doc.head.appendChild(style);
+				};	
 			}
+			// End style of meromiti widget
+	
 	});
 	
 </script>
