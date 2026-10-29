@@ -16,7 +16,7 @@
 	</div>
 
 <script>
-	/* Control the display and allow minimize/maximize of the plugin container*/
+	/* Control the display and allow minimize/maximize of the plugin contai*/
 	window.addEventListener('DOMContentLoaded', () => {
 			// Locate the iframe element inside the parent window
 			const iframe = window.parent.document.querySelector('iframe[src*="Nepali-Calendar-Helper"]');
@@ -83,7 +83,7 @@
 								iframe.style.transform = 'scale(1)';
 								iframe.style.opacity = '1';
 								iframe.style.pointerEvents = 'auto';
-								toggleBtn.innerHTML = '−';
+								toggleBtn.innerHTML = 'x';
 								toggleBtn.style.top = '-10px';
 								toggleBtn.style.right = '-10px';
 								isMinimized = false;
@@ -96,16 +96,27 @@
 
 			// Control the style of meromiti widget
 			const meroMitiIframe = document.querySelector('iframe');
+		
 			if (meroMitiIframe) {
-				meroMitiIframe.onload = function () {
-							var doc = iframe.contentDocument || iframe.contentWindow.document;
-							var style = doc.createElement('style');
-							style.textContent = `
-									.meromiti-month-widget {
-											padding:0 !important;
-									}`;
-							doc.head.appendChild(style);
-				};	
+					const applyStylesDirectly = () => {
+							// Access the document inside the widget iframe
+							const doc = meroMitiIframe.contentDocument || meroMitiIframe.contentWindow.document;
+							const targetWidget = doc.querySelector('.meromiti-month-widget');
+								if (targetWidget) {
+									// Apply your style values directly to the node element
+									targetWidget.style.padding = "0";
+									targetWidget.style.margin = "0";
+									targetWidget.style.backgroundColor = "#ffffff";
+							}
+					};
+	
+					// Trigger immediately if the element layout tree is already parsed completely
+					if (meroMitiIframe.contentDocument && meroMitiIframe.contentDocument.readyState === 'complete') {
+							applyStylesDirectly();
+					} else {
+							// Fallback option to execute when the layout asset loading triggers a load state event
+							meroMitiIframe.onload = applyStylesDirectly;
+					}
 			}
 			// End style of meromiti widget
 	
