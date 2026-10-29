@@ -37,6 +37,31 @@
 					doc.head.appendChild(style);
 			};		
 	});
+
+	window.addEventListener('DOMContentLoaded', () => {
+			// 1. Locate the iframe element inside the parent window
+			const iframe = window.parent.document.querySelector('iframe[src*="Nepali-Calendar-Helper"]');
+
+			if (iframe) {
+					// 2. Access its parent element (the <div>)
+					const parentDiv = iframe.parentElement;
+
+					// 3. Apply your styles
+					/*parentDiv.style.height = "500px";
+					parentDiv.style.border = "2px solid red";
+					parentDiv.style.display = "flex";*/
+
+					parentDiv.style.position = "fixed";
+					parentDiv.style.bottom = "20px";
+					parentDiv.style.right = "20px";
+					parentDiv.style.zIndex = "9999";
+	
+					parentDiv.style.height = "350px"; 
+					iframe.style.height = "100%";
+					iframe.style.width = "100%";
+			}
+	});
+	
 </script>
 </body>
 </html>
