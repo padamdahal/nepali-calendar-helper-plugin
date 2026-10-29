@@ -93,32 +93,6 @@
 
 				
 			} // End if(iframe)
-
-			// Control the style of meromiti widget
-			const meroMitiIframe = document.querySelector('iframe');
-		
-			if (meroMitiIframe) {
-					const applyStylesDirectly = () => {
-							// Access the document inside the widget iframe
-							const doc = meroMitiIframe.contentDocument || meroMitiIframe.contentWindow.document;
-							const targetWidget = doc.querySelector('.meromiti-month-widget');
-								if (targetWidget) {
-									// Apply your style values directly to the node element
-									targetWidget.style.padding = "0";
-									targetWidget.style.margin = "0";
-									targetWidget.style.backgroundColor = "#ffffff";
-							}
-					};
-	
-					// Trigger immediately if the element layout tree is already parsed completely
-					if (meroMitiIframe.contentDocument && meroMitiIframe.contentDocument.readyState === 'complete') {
-							applyStylesDirectly();
-					} else {
-							// Fallback option to execute when the layout asset loading triggers a load state event
-							meroMitiIframe.onload = applyStylesDirectly;
-					}
-			}
-			// End style of meromiti widget
 	
 	});
 	
